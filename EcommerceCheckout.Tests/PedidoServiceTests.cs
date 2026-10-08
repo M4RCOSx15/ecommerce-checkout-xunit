@@ -6,17 +6,35 @@ public class PedidoServiceTests
 {
     private readonly PedidoService _service = new PedidoService();
 
-    // TODO: Teste 1 — Valide GerarCodigoRastreio com Assert.Equal
-    // Dica: chame _service.GerarCodigoRastreio("sudeste", 42)
-    // Resultado esperado: "SUDESTE-0042"
+    [Fact]
+public void GerarCodigoRastreio_DeveRetornarCodigoFormatado()
+{
+    string resultado = _service.GerarCodigoRastreio("sudeste", 42);
 
-    // TODO: Teste 2 — Valide CalcularPontosFidelidade com Assert.Equal
-    // Dica: chame _service.CalcularPontosFidelidade(150)
-    // Resultado esperado: 30
+    Assert.Equal("SUDESTE-0042", resultado);
+}
+    [Fact]
+public void CalcularPontosFidelidade_DeveRetornar30Pontos()
+{
+    int resultado = _service.CalcularPontosFidelidade(150);
 
-    // TODO: Teste 3a — Valide TemDireitoAFreteGratis com Assert.True
-    // Cenário: cliente VIP com valor 150 (abaixo de R$200)
+    Assert.Equal(30, resultado);
+}
 
-    // TODO: Teste 3b — Valide TemDireitoAFreteGratis com Assert.False
-    // Cenário: cliente não-VIP com valor 150 (abaixo de R$200)
+   [Fact]
+public void TemDireitoAFreteGratis_ClienteVip_DeveRetornarTrue()
+{
+    bool resultado = _service.TemDireitoAFreteGratis(150, true);
+
+    Assert.True(resultado);
+}
+
+    [Fact]
+public void TemDireitoAFreteGratis_ClienteNaoVip_DeveRetornarFalse()
+{
+    bool resultado = _service.TemDireitoAFreteGratis(150, false);
+
+    Assert.False(resultado);
+  }
+
 }
